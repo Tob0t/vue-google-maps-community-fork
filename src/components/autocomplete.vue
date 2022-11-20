@@ -1,10 +1,10 @@
 <template>
   <template v-if="$slots['input']">
     <div>
-        <slot
+      <slot
         name="input"
         v-bind="$attrs"
-        ></slot>
+      ></slot>
     </div>
   </template>
   <input

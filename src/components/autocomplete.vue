@@ -1,9 +1,11 @@
 <template>
   <template v-if="$slots['input']">
-    <slot
-      name="input"
-      v-bind="$attrs"
-    ></slot>
+    <div>
+        <slot
+        name="input"
+        v-bind="$attrs"
+        ></slot>
+    </div>
   </template>
   <input
     v-else-if="!$slots['input']"
@@ -54,11 +56,14 @@ export default {
       // get correct input from fallback or slot
       let refInput = _this.$refs.input
       if (_this.$slots.input) {
-        const refName = _this.$slots.input()[0].props.ref;
-        const scopedInput = _this.$slots.input()[0].ref.i.ctx.$refs[refName];
-        if (scopedInput) {
-          refInput = scopedInput.$el.getElementsByTagName('input')[0];
-        }
+        // const refName = _this.$slots.input()[0].props.ref;
+        // const scopedInput = _this.$slots.input()[0].ref.i.ctx.$refs[refName];
+        // if (scopedInput) {
+        //   refInput = scopedInput.$el.getElementsByTagName('input')[0];
+        // }
+        // the above snippet did not work for me in nuxt production mode 
+        // so just checking for an input element in slot
+        refInput = _this._.vnode.el.getElementsByTagName('input')[0]
       }
       if (this.selectFirstOnEnter) {
         downArrowSimulator(refInput)
